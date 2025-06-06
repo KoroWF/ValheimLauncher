@@ -1,10 +1,21 @@
-﻿<Window x:Class="Valheim_Launcher.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:local="clr-namespace:Valheim_Launcher" Title="MainWindow" Height="479" Width="701" WindowStyle="None" AllowsTransparency="True" Cursor="Cross" Foreground="{x:Null}" Background="{x:Null}">
-    <Grid Height="479" Width="681" HorizontalAlignment="Center" VerticalAlignment="Center" ColumnDefinitions="" Mouse.MouseDown="Grid_MouseDown">
+﻿<Window x:Class="ValheimLauncher.MainWindow" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:ValheimLauncher" 
+        Title="MainWindow" Height="479" Width="701" 
+        WindowStyle="None" AllowsTransparency="True" Cursor="Cross" 
+        Foreground="{x:Null}" Background="{x:Null}">
+    <Window.Resources>
+        <local:ProgressToClipConverter x:Key="ProgressToClipConverter"/>
+    </Window.Resources>
+    <Grid Height="479" Width="681" HorizontalAlignment="Center" VerticalAlignment="Center" Mouse.MouseDown="Grid_MouseDown">
         <Panel.Background>
-            <ImageBrush TileMode="None" ImageSource="/background2.png" />
+            <ImageBrush TileMode="None" ImageSource="/pic/background2.png" />
         </Panel.Background>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Button Name="Start" VerticalAlignment="Top" Height="162" BorderThickness="0,0,0,0" HorizontalAlignment="Left" Width="305" RenderTransformOrigin="0.506,0.713" Margin="178,-10,0,0" Click="Start_Click">
+            <Button Name="Start" VerticalAlignment="Top" Height="200" BorderThickness="0,0,0,0" HorizontalAlignment="Left" Width="314" RenderTransformOrigin="0.506,0.713" Margin="20,70,0,0" Click="Start_Click">
                 <UIElement.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform />
@@ -14,7 +25,7 @@
                     </TransformGroup>
                 </UIElement.RenderTransform>
                 <Control.Background>
-                    <ImageBrush ImageSource="/startbutton.png" />
+                    <ImageBrush ImageSource="/pic/startbutton.png" />
                 </Control.Background>
                 <FrameworkElement.Style>
                     <Style TargetType="{x:Type Button}">
@@ -22,16 +33,16 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
                                     <Grid Margin="36,26,-52,22" Height="NaN">
-                                        <Image Name="BackgroundImage" Source="/startbutton.png" Stretch="UniformToFill" Height="149" VerticalAlignment="Top" HorizontalAlignment="Left" Width="205" />
+                                        <Image Name="BackgroundImage" Source="/pic/startbutton.png" Stretch="UniformToFill" Height="159" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Margin="0,-7,0,0" />
                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsEnabled" Value="False">
-                                            <Setter x:Name="StartGamenotenable_png" TargetName="BackgroundImage" Property="Image.Source" Value="/startbuttonnoenable.png" />
+                                            <Setter x:Name="StartGamenotenable_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/startbuttonnoenable.png" />
                                             <Setter TargetName="BackgroundImage" Property="UIElement.Opacity" Value="0.5" />
                                         </Trigger>
                                         <Trigger Property="UIElement.IsMouseOver" Value="True">
-                                            <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/startbuttonhover.png" />
+                                            <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/startbuttonhover.png" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -44,15 +55,10 @@
                     </Style>
                 </FrameworkElement.Style>
             </Button>
-            <Button Name="MP_Download" Content="MP Download" HorizontalAlignment="Left" Margin="88,91,0,0" VerticalAlignment="Top" Width="56" Height="18" Foreground="#FFFFFFFF" FontSize="8" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click">
-                <FrameworkElement.ToolTip>
-                    <TextBlock Name="TooltipMPDownload" TextWrapping="Wrap" MaxWidth="200">Lade manuell das neueste Mod-Paket von Thunderstore.io herunter. Dadurch werden auch fehlende Mod-Dateien behoben.</TextBlock>
-                </FrameworkElement.ToolTip>
-            </Button>
         </Grid>
-        <Button Name="CloseButton" Content="" Margin="546,74,0,0" VerticalAlignment="Top" IsCancel="True" Height="30" HorizontalAlignment="Left" Width="44" BorderThickness="0,0,0,0" Click="Close_Click">
+        <Button Name="MP_Download" Content="" HorizontalAlignment="Left" Margin="71,40,0,0" VerticalAlignment="Top" Width="78" Height="25" FontSize="8" BorderBrush="{x:Null}" Click="Button_Click" ForceCursor="True">
             <Control.Background>
-                <ImageBrush ImageSource="/CloseWindow.png" Stretch="Fill" />
+                <ImageBrush ImageSource="/pic/MPDownload.png"/>
             </Control.Background>
             <FrameworkElement.Style>
                 <Style TargetType="{x:Type Button}">
@@ -60,12 +66,43 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Grid>
-                                    <Image Name="BackgroundImage" Source="/CloseWindow.png" Stretch="Fill" Height="46" VerticalAlignment="Center" Margin="-3,0,3,0" />
+                                    <Image Name="BackgroundImage" Source="/pic/MPDownload.png" Height="46" VerticalAlignment="Center" />
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="UIElement.IsMouseOver" Value="True">
-                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/CloseWindowHover.png" />
+                                        <Setter x:Name="MPDownloadOver_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/MPDownloadOver.png" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Background" Value="#FF1C1C1C" />
+                    <Setter Property="Foreground" Value="#FFFFFFFF" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="Padding" Value="10,3,10,3" />
+                </Style>
+            </FrameworkElement.Style>
+            <FrameworkElement.ToolTip>
+                <TextBlock Name="TooltipMPDownload" TextWrapping="Wrap" MaxWidth="200">Lade manuell das neueste Mod-Paket von Thunderstore.io herunter. Dadurch werden auch fehlende Mod-Dateien behoben.</TextBlock>
+            </FrameworkElement.ToolTip>
+        </Button>
+        <Button Name="CloseButton" Content="" Margin="575,19,0,0" VerticalAlignment="Top" IsCancel="True" Height="30" HorizontalAlignment="Left" Width="44" BorderThickness="0,0,0,0" Click="Close_Click">
+            <Control.Background>
+                <ImageBrush ImageSource="/pic/CloseWindow.png" Stretch="Fill" />
+            </Control.Background>
+            <FrameworkElement.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Image Name="BackgroundImage" Source="/pic/CloseWindow.png" Stretch="Fill" Height="46" VerticalAlignment="Center" Margin="-3,0,3,0" />
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="UIElement.IsMouseOver" Value="True">
+                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/CloseWindowHover.png" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -78,19 +115,32 @@
                 </Style>
             </FrameworkElement.Style>
         </Button>
-        <ProgressBar Name="ProgressLeiste" HorizontalAlignment="Left" Height="5" Margin="86,422,0,0" VerticalAlignment="Top" Width="498" Value="0" Background="#FF1A1E3E" BorderBrush="#FF000000">
-            <Control.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" />
-                    <GradientStop Color="#FF6D0505" Offset="0.445" />
-                    <GradientStop Color="#FFC18708" Offset="1" />
-                </LinearGradientBrush>
-            </Control.Foreground>
+        <ProgressBar Name="ProgressLeiste" HorizontalAlignment="Center" Height="6" Margin="0,443,0,0" VerticalAlignment="Top" Width="537" Value="0" BorderBrush="Black" Background="Black">
+            <ProgressBar.Template>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"/>
+                        <Image Source="pic/leiste.png" Stretch="Fill" HorizontalAlignment="Left">
+                            <Image.Clip>
+                                <RectangleGeometry>
+                                    <RectangleGeometry.Rect>
+                                        <MultiBinding Converter="{StaticResource ProgressToClipConverter}">
+                                            <Binding Path="Value" RelativeSource="{RelativeSource AncestorType=ProgressBar}"/>
+                                            <Binding Path="Maximum" RelativeSource="{RelativeSource AncestorType=ProgressBar}"/>
+                                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=ProgressBar}"/>
+                                        </MultiBinding>
+                                    </RectangleGeometry.Rect>
+                                </RectangleGeometry>
+                            </Image.Clip>
+                        </Image>
+                    </Grid>
+                </ControlTemplate>
+            </ProgressBar.Template>
         </ProgressBar>
-        <Label Name="Label" Content="" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="86,397,0,0" VerticalAlignment="Top" Width="500" Height="25" Foreground="#FFFFFFFF" FontFamily="Eras ITC" FontSize="14" />
-        <Button Name="InstallGame" HorizontalAlignment="Center" Margin="0,298,0,0" VerticalAlignment="Top" Height="109" Width="202" BorderThickness="0,0,0,0" IsEnabled="True" Click="InstallGame_Click">
+        <Label Name="Label" Content="" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,418,0,0" VerticalAlignment="Top" Width="471" Height="25" Foreground="#FFFFFFFF" FontFamily="Eras ITC" FontSize="10" />
+        <Button Name="InstallGame" HorizontalAlignment="Left" Margin="407,298,0,0" VerticalAlignment="Top" Height="115" Width="202" BorderThickness="0,0,0,0" IsEnabled="True" Click="InstallGame_Click">
             <Control.Background>
-                <ImageBrush ImageSource="/InstallGame1.png" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="/pic/InstallGame1.png" Stretch="UniformToFill" />
             </Control.Background>
             <FrameworkElement.Style>
                 <Style TargetType="{x:Type Button}">
@@ -98,16 +148,16 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Grid Height="NaN" Margin="0,62,0,0">
-                                    <Image Name="BackgroundImage" Source="/InstallGame1.png" Stretch="Fill" Height="66" VerticalAlignment="Center" Margin="-38,0,-38,0" Width="NaN" />
+                                    <Image Name="BackgroundImage" Source="/pic/InstallGame1.png" Stretch="Fill" Height="66" VerticalAlignment="Center" Margin="-38,0,-38,0" Width="NaN" />
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsEnabled" Value="False">
-                                        <Setter x:Name="InstallGame1" TargetName="BackgroundImage" Property="Image.Source" Value="/InstallGame1noenable.png" />
+                                        <Setter x:Name="InstallGame1" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/InstallGame1noenable.png" />
                                         <Setter TargetName="BackgroundImage" Property="UIElement.Opacity" Value="0.5" />
                                     </Trigger>
                                     <Trigger Property="UIElement.IsMouseOver" Value="True">
-                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/InstallGamehover1.png" />
+                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/InstallGamehover1.png" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -120,9 +170,9 @@
                 </Style>
             </FrameworkElement.Style>
         </Button>
-        <Button Name="FixValheim" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Width="212" BorderThickness="0,0,0,0" IsEnabled="True" Margin="0,357,0,0" Click="FixValheim_Click">
+        <Button Name="FixValheim" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="212" BorderThickness="0,0,0,0" IsEnabled="True" Margin="407,363,0,0" Click="FixValheim_Click">
             <Control.Background>
-                <ImageBrush ImageSource="/FixValheim.png" Stretch="UniformToFill" />
+                <ImageBrush ImageSource="/pic/FixValheim.png" Stretch="UniformToFill" />
             </Control.Background>
             <FrameworkElement.ToolTip>
                 <TextBlock TextWrapping="Wrap" MaxWidth="200">Mit 'Fix Valheim' kannst du Spieldaten reparieren. Diese umfassen ausschließlich die Daten, die du auch von Steam herunterladen kannst. Mit 'Fix Valheim' werden nur bedingt Mod-Daten geändert. Diese Mod-Daten beinhalten: MMOHOOK für Planbuild, Immersion für die Bilder im Ladebildschirm und die Grafiken für Seasonality.</TextBlock>
@@ -133,12 +183,12 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Grid>
-                                    <Image Name="BackgroundImage" Source="/FixValheim.png" Stretch="Fill" Height="67" VerticalAlignment="Center" Margin="10,0,-92,0" Width="NaN" />
+                                    <Image Name="BackgroundImage" Source="/pic/FixValheim.png" Stretch="Fill" Height="67" VerticalAlignment="Center" Margin="10,0,-92,0" Width="NaN" />
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="UIElement.IsMouseOver" Value="True">
-                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/FixValheimOver.png" />
+                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/FixValheimOver.png" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -151,7 +201,7 @@
                 </Style>
             </FrameworkElement.Style>
         </Button>
-        <Label Content="Launcher v. 1.5.1" HorizontalAlignment="Left" Margin="478,68,0,0" VerticalAlignment="Top" Width="76" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
+        <Label Content="Launcher v. 1.5.5" HorizontalAlignment="Left" Margin="507,20,0,0" VerticalAlignment="Top" Width="69" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
             <UIElement.Effect>
                 <DropShadowEffect />
             </UIElement.Effect>
@@ -164,7 +214,7 @@
                 </TransformGroup>
             </UIElement.RenderTransform>
         </Label>
-        <Label Content="MP Lokal:" HorizontalAlignment="Left" Margin="86,68,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
+        <Label Content="MP Lokal:" HorizontalAlignment="Left" Margin="71,20,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
             <UIElement.Effect>
                 <DropShadowEffect />
             </UIElement.Effect>
@@ -177,7 +227,7 @@
                 </TransformGroup>
             </UIElement.RenderTransform>
         </Label>
-        <Label Content="MP Online:" HorizontalAlignment="Left" Margin="86,78,0,0" VerticalAlignment="Top" Width="51" Height="19" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
+        <Label Content="MP Online:" HorizontalAlignment="Left" Margin="71,30,0,0" VerticalAlignment="Top" Width="51" Height="19" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
             <UIElement.Effect>
                 <DropShadowEffect />
             </UIElement.Effect>
@@ -190,7 +240,7 @@
                 </TransformGroup>
             </UIElement.RenderTransform>
         </Label>
-        <Label Name="MPLokal" Content="v. 0" HorizontalAlignment="Left" Margin="154,68,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
+        <Label Name="MPLokal" Content="v. 0" HorizontalAlignment="Left" Margin="127,20,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
             <UIElement.Effect>
                 <DropShadowEffect />
             </UIElement.Effect>
@@ -203,7 +253,7 @@
                 </TransformGroup>
             </UIElement.RenderTransform>
         </Label>
-        <Label Name="MPOnline" Content="v. 0" HorizontalAlignment="Left" Margin="154,78,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
+        <Label Name="MPOnline" Content="v. 0" HorizontalAlignment="Left" Margin="127,30,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
             <UIElement.Effect>
                 <DropShadowEffect />
             </UIElement.Effect>
@@ -216,7 +266,10 @@
                 </TransformGroup>
             </UIElement.RenderTransform>
         </Label>
-        <CheckBox Name="Vulkan" Content="Vulkan" HorizontalAlignment="Left" Margin="479,85,0,0" VerticalAlignment="Top" Background="#FFDAD4D4" Height="17" Width="55" RenderTransformOrigin="0.5,0.5" AutomationProperties.HelpText="Hello mama">
+        <CheckBox Name="Vulkan" Content="" HorizontalAlignment="Left" Margin="511,38,0,0" VerticalAlignment="Top" Height="17" Width="17" RenderTransformOrigin="0.5,0.5" Click="Vulkan_SettingChanged_Click" OpacityMask="White" >
+            <CheckBox.Background>
+                <ImageBrush/>
+            </CheckBox.Background>
             <FrameworkElement.ToolTip>
                 <TextBlock TextWrapping="Wrap" MaxWidth="200">Insgesamt bietet Vulkan für die meisten Valheim-Spieler potenzielle Leistungsverbesserungen und Stabilitätsvorteile. Dies kann zu höheren FPS führen, bedeutet jedoch auch, dass CPU und GPU stärker beansprucht werden. Andernfalls wird DirectX 11 genutzt.</TextBlock>
             </FrameworkElement.ToolTip>
@@ -234,12 +287,7 @@
                     <GradientStop Color="#FF6B0505" Offset="1" />
                 </LinearGradientBrush>
             </Control.BorderBrush>
-            <Control.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFEDEDED" Offset="0.325" />
-                    <GradientStop Color="#FF504A4A" Offset="1" />
-                </LinearGradientBrush>
-            </Control.Foreground>
         </CheckBox>
+        <Image x:Name="Vulkan1" HorizontalAlignment="Left" Height="42" Margin="522,36,0,0" VerticalAlignment="Top" Width="60" Source="pic/Vulkan.png"/>
     </Grid>
 </Window>

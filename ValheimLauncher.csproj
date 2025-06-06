@@ -6,12 +6,87 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+	<UseWindowsForms>False</UseWindowsForms>
+	<StartupObject>ValheimLauncher.App</StartupObject>
+	<PlatformTarget>x64</PlatformTarget>
+	<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+	<ApplicationIcon>pic\ID2.ico</ApplicationIcon>
+  <PublishSingleFile>true</PublishSingleFile>
+  <SelfContained>true</SelfContained> 
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.72" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="SharpCompress" Version="0.38.0" />
+    <None Remove="background.png" />
+    <None Remove="background2.png" />
+    <None Remove="closewindow.png" />
+    <None Remove="closewindowhover.png" />
+    <None Remove="dclogo1.png" />
+    <None Remove="discordlogohover2.png" />
+    <None Remove="fixvalheim.png" />
+    <None Remove="fixvalheimover.png" />
+    <None Remove="gzr.gif" />
+    <None Remove="installgame1.png" />
+    <None Remove="installgame1noenable.png" />
+    <None Remove="installgamehover1.png" />
+    <None Remove="leiste.png" />
+    <None Remove="MPDownload.png" />
+    <None Remove="MPDownloadOver.png" />
+    <None Remove="pic\background2.png" />
+    <None Remove="pic\closewindow.png" />
+    <None Remove="pic\closewindowhover.png" />
+    <None Remove="pic\fixvalheim.png" />
+    <None Remove="pic\fixvalheimover.png" />
+    <None Remove="pic\installgame1.png" />
+    <None Remove="pic\installgame1noenable.png" />
+    <None Remove="pic\installgamehover1.png" />
+    <None Remove="pic\leiste.png" />
+    <None Remove="pic\MPDownload.png" />
+    <None Remove="pic\MPDownloadOver.png" />
+    <None Remove="pic\startbutton.png" />
+    <None Remove="pic\startbuttonhover.png" />
+    <None Remove="pic\startbuttonnoenable.png" />
+    <None Remove="pic\Vulkan.png" />
+    <None Remove="startbutton.png" />
+    <None Remove="startbuttonhover.png" />
+    <None Remove="startbuttonnoenable.png" />
+    <None Remove="Vulkan.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="pic\background2.png" />
+    <Resource Include="pic\closewindow.png" />
+    <Resource Include="pic\closewindowhover.png" />
+    <Resource Include="pic\fixvalheim.png" />
+    <Resource Include="pic\fixvalheimover.png" />
+    <Resource Include="pic\installgame1.png" />
+    <Resource Include="pic\installgame1noenable.png" />
+    <Resource Include="pic\installgamehover1.png" />
+    <Resource Include="pic\leiste.png" />
+    <Resource Include="pic\MPDownload.png" />
+    <Resource Include="pic\MPDownloadOver.png" />
+    <Resource Include="pic\startbutton.png" />
+    <Resource Include="pic\startbuttonhover.png" />
+    <Resource Include="pic\startbuttonnoenable.png" />
+    <Resource Include="pic\Vulkan.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="pic\ID2.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="SharpCompress" Version="0.40.0" />
+  </ItemGroup>
 </Project>

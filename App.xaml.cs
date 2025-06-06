@@ -1,14 +1,14 @@
-﻿using System.Configuration;
-using System.Data;
+﻿using System.CodeDom.Compiler;
+using System.Diagnostics;
 using System.Windows;
+using Application = System.Windows.Application;
 
-namespace ValheimLauncher
+public class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    [DebuggerNonUserCode]
+    [GeneratedCode("PresentationBuildTasks", "8.0.8.0")]
+    public void InitializeComponent()
     {
+        base.StartupUri = new Uri("MainWindow.xaml", UriKind.Relative);
     }
-
 }
