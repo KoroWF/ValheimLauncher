@@ -356,11 +356,11 @@ namespace ValheimLauncher
                 }
                 if (currentSettings.VulkanEnabled == true)
                 {
-                    Process.Start(Path.Combine(currentSettings.ValheimInstallPath, "valheim.exe"), "-force-vulkan -window-mode exclusive");
+                    Process.Start(Path.Combine(currentSettings.ValheimInstallPath, "valheim.exe"), "-force-vulkan");
                 }
                 else
                 {
-                    Process.Start(Path.Combine(currentSettings.ValheimInstallPath, "valheim.exe"), "-force-d3d12 -window-mode exclusive");
+                    Process.Start(Path.Combine(currentSettings.ValheimInstallPath, "valheim.exe"), "-force-d3d12");
                 }
                 Close();
             }
