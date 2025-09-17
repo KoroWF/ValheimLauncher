@@ -1,6 +1,5 @@
 ﻿using System.CodeDom.Compiler;
 using System.Diagnostics;
-using System.Windows;
 using Application = System.Windows.Application;
 
 public class App : Application

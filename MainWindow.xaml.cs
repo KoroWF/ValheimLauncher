@@ -1,5 +1,5 @@
 ﻿using HtmlAgilityPack;
-using Microsoft.VisualBasic.FileIO;
+using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -9,13 +9,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
-using ZstdSharp.Unsafe;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using MessageBox = System.Windows.MessageBox;
 
@@ -34,9 +31,10 @@ namespace ValheimLauncher
                 Dependencies = dependencies;
             }
         }
-        private const string SettingsFileName = "launcher_settings.json"; // Name deiner Einstellungsdatei
-        private string settingsFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, SettingsFileName);
+
         private LauncherSettings currentSettings; // Eine Instanz, um die geladenen Einstellungen zu halten
+        private const string SettingsFileName = "launcher_settings.json"; // Name deiner Einstellungsdatei
+        public string settingsFilePath;
 
         private void LoadSettings()
         {
@@ -59,6 +57,10 @@ namespace ValheimLauncher
                     if (currentSettings.Modpack.ExpectedModFiles == null) // Wichtig für spätere Nutzung
                     {
                         currentSettings.Modpack.ExpectedModFiles = new List<string>();
+                    }
+                    if (string.IsNullOrEmpty(currentSettings.ValheimInstallPath) || currentSettings.ValheimInstallPath == "null")
+                    {
+                        currentSettings.ValheimInstallPath = "notgiven"; // Setze auf "null", wenn leer
                     }
                 }
                 else
@@ -101,18 +103,47 @@ namespace ValheimLauncher
             }
         }
 
+        private void ToggleSwitch_Toggled(object sender, RoutedEventArgs e)
+        {
+            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
+
+            if (toggleSwitch.IsOn == true)
+            {
+                currentSettings.VulkanEnabled = true;
+                SaveSettings();
+            }
+            else
+            {
+                currentSettings.VulkanEnabled = false;
+                SaveSettings();
+
+            }
+        }
+
         public MainWindow()
         {
 
             InitializeComponent();
+
+            // Initialisiere den Pfad in der Methode
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string launcherFolderPath = Path.Combine(appDataPath, "ValheimImmerndar");
+
+            // Erstelle den Ordner, wenn er nicht existiert
+            if (!Directory.Exists(launcherFolderPath))
+            {
+                Directory.CreateDirectory(launcherFolderPath);
+            }
+
+            settingsFilePath = Path.Combine(launcherFolderPath, SettingsFileName);
+
             LoadSettings();
+            VulkanToggleSwitch.IsOn = currentSettings.VulkanEnabled;
 
             ProgressLeiste.Dispatcher.Invoke(delegate
             {
                 ProgressLeiste.Visibility = Visibility.Hidden;
             });
-                        
-            Vulkan.IsChecked = currentSettings.VulkanEnabled;
 
             if (Checkstatus())
             {
@@ -120,6 +151,49 @@ namespace ValheimLauncher
                 FixValheim.Visibility = Visibility.Hidden;
                 base.Loaded += MainWindow_Loaded;
             }
+        }
+        private void SelectValheimFolder()
+        {
+            // Starte den Code auf dem UI-Thread
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                var driveSelectionWindow = new DriveSelectionWindow(currentSettings);
+                if (driveSelectionWindow.ShowDialog() == true)
+                {
+                    string selectedDrive = driveSelectionWindow.SelectedDrive;
+
+                    string installPath = Path.Combine(selectedDrive, "ValheimImmerndar");
+
+                    // Restlicher Code
+                    currentSettings.ValheimInstallPath = installPath;
+                    if (!Directory.Exists(installPath))
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory(installPath);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Fehler beim Erstellen des Ordners: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+
+                        if (driveSelectionWindow.DialogResult == true)
+                        {
+                            string exePath = Process.GetCurrentProcess().MainModule.FileName;
+                            Process.Start(exePath);
+                            Close();
+                        }
+                        else {
+                            MessageBox.Show($"Valheim-Mithrael-Pfad gesetzt: {currentSettings.ValheimInstallPath}", "Erfolg");
+                        }
+                    }
+                }
+                else
+                {
+                  
+                }
+            });
         }
 
         private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -237,8 +311,8 @@ namespace ValheimLauncher
 
         private bool Checkstatus()
         {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "valheim.exe");
-            string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "valheim_Data", "boot.config");
+            string path = Path.Combine(currentSettings.ValheimInstallPath, "valheim.exe");
+            string path2 = Path.Combine(currentSettings.ValheimInstallPath, "valheim_Data", "boot.config");
             bool flag = File.Exists(path);
             bool flag2 = File.Exists(path2);
             Start.IsEnabled = flag && flag2;
@@ -280,13 +354,13 @@ namespace ValheimLauncher
                         Label.Content = "Starte das Spiel!";
                     });
                 }
-                if (Vulkan.IsChecked == true)
+                if (currentSettings.VulkanEnabled == true)
                 {
-                    Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "valheim.exe"), "-force-vulkan -window-mode exclusive");
+                    Process.Start(Path.Combine(currentSettings.ValheimInstallPath, "valheim.exe"), "-force-vulkan -window-mode exclusive");
                 }
                 else
                 {
-                    Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "valheim.exe"), "-window-mode exclusive");
+                    Process.Start(Path.Combine(currentSettings.ValheimInstallPath, "valheim.exe"), "-force-d3d12 -window-mode exclusive");
                 }
                 Close();
             }
@@ -327,7 +401,7 @@ namespace ValheimLauncher
                 ProgressLeiste.Visibility = Visibility.Visible;
             });
 
-            string bepinexPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "BepInEx");
+            string bepinexPath = Path.Combine(currentSettings.ValheimInstallPath, "BepInEx");
             // Die Logik für "1ExtraMods" - diese bleibt, da sie spezifisch für deine Struktur ist
             string pluginsPath = Path.Combine(bepinexPath, "plugins");
             string extraModsUserFolderPath = Path.Combine(pluginsPath, "1ExtraMods"); // Der gewünschte Pfad
@@ -368,16 +442,6 @@ namespace ValheimLauncher
                 ProgressLeiste.Visibility = Visibility.Hidden;
             });
             return downloadSuccess; // Gebe zurück, ob der Haupt-Download-Prozess erfolgreich war
-        }
-
-        private void Vulkan_SettingChanged_Click(object sender, RoutedEventArgs e)
-        {
-            if (currentSettings != null && Vulkan != null) // Sicherstellen, dass alles initialisiert ist
-            {
-                currentSettings.VulkanEnabled = Vulkan.IsChecked ?? false; // Aktualisiere die Einstellung
-                SaveSettings(); // Speichere die Einstellungen sofort
-                Console.WriteLine($"Vulkan-Einstellung geändert und gespeichert: {currentSettings.VulkanEnabled}");
-            }
         }
 
         private async Task<(string downloadUrl, string versionNumber, string response, string[] dependencies)> GetDownloadUrlAndVersionAsync(string modpackId)
@@ -433,7 +497,7 @@ namespace ValheimLauncher
             try
             {
                 string pluginsPath = Path.Combine(bepinexPath, "plugins");
-                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string baseDirectory = currentSettings.ValheimInstallPath;
                 string pluginZipDirectory = Path.Combine(bepinexPath, "pluginZip");
 
                 Directory.CreateDirectory(pluginsPath);
@@ -726,6 +790,7 @@ namespace ValheimLauncher
             }
             // Füge essentielle BepInEx-Dateien/Ordner hinzu, die immer behalten werden sollen
             filesAndFoldersToKeep.Add("Valheim.DisplayBepInExInfo.dll"); // Beispiel, anpassen an deine BepInEx Struktur
+            filesAndFoldersToKeep.Add("HappyDragoon-DragoonCapes"); // Beispiel, anpassen an deine BepInEx Struktur
 
             // Aufräumen im pluginsPath
             if (Directory.Exists(pluginsPath))
@@ -745,7 +810,8 @@ namespace ValheimLauncher
                             !name.Equals("config", StringComparison.OrdinalIgnoreCase) &&
                             !name.Equals("core", StringComparison.OrdinalIgnoreCase) &&
                             !name.Contains("MMHOOK") && // Beispielhafte Ausnahmen
-                            !name.Contains("1ExtraMods", StringComparison.OrdinalIgnoreCase)) // Spezieller Ordner, den du behalten willst
+                            !name.Contains("1ExtraMods", StringComparison.OrdinalIgnoreCase) &&
+                            !name.Contains("HappyDragoon-DragoonCapes")) // Spezieller Ordner, den du behalten willst
                         {
                             Console.WriteLine($"Lösche verwaiste Datei/Ordner in plugins: {fileSystemInfo.FullName}");
                             if (fileSystemInfo is FileInfo fileInfo) fileInfo.Delete();
@@ -793,35 +859,86 @@ namespace ValheimLauncher
         private async void InstallGame_Click(object sender, RoutedEventArgs e)
         {
             InstallGame.Visibility = Visibility.Hidden;
-            Label.Content = "Das Hauptspiel wird geladen, das kann einige Zeit in Anspruch nehmen!";
-            await Task.Run(async delegate
+            Reset.Visibility = Visibility.Hidden;
+            Label.Content = "Nachdem der Installationspfad gewählt wurde, beginnt der Download.";
+
+            // 1. Überprüfe, ob der Installationspfad existiert.
+            if (currentSettings.ValheimInstallPath == "notgiven")
             {
-                await deleteFolder();
-                await installer();
-            });
-            Checkstatus();
-            Label.Content = "Das Hauptspiel wurde fertig geladen";
-            await Check_Versions();
+                // 2. Wenn nicht vorhanden, öffne einen Dialog zur Pfadauswahl.
+                SelectValheimFolder();
+                SaveSettings(); // Speichere den neu ausgewählten Pfad
+            }
+
+            // Wenn der Benutzer den Pfad-Dialog schließt, ist der Pfad null.
+            // In diesem Fall die Installation abbrechen.
+            if (currentSettings.ValheimInstallPath == "notgiven")
+            {
+                MessageBox.Show("Installation abgebrochen. Es wurde kein Valheim-Pfad ausgewählt.");
+                InstallGame.Visibility = Visibility.Visible;
+                Reset.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                await Task.Run(async delegate
+                {
+                    await deleteFolder();
+                    await installer();
+
+                });
+                Checkstatus();
+                Label.Content = "Das Hauptspiel wurde fertig geladen";
+                Reset.Visibility = Visibility.Visible;
+                await Check_Versions();
+            }
         }
 
         private async void FixValheim_Click(object sender, RoutedEventArgs e)
         {
             FixValheim.Visibility = Visibility.Hidden;
+            Reset.Visibility = Visibility.Hidden;
             Start.IsEnabled = false;
             Label.Content = "Überprüfe vorhandene Daten auf Fehler!";
-            await Task.Run(async delegate
+
+
+            // 1. Überprüfe, ob der Installationspfad existiert.
+            if (currentSettings.ValheimInstallPath == "notgiven")
             {
-                await deleteFolder();
-                await installer();
-            });
-            Checkstatus();
-            Label.Content = "Überprüfung beendet, bereit zum Starten!";
+                // 2. Wenn nicht vorhanden, öffne einen Dialog zur Pfadauswahl.
+                SelectValheimFolder();
+                SaveSettings(); // Speichere den neu ausgewählten Pfad
+            }
+
+            // Wenn der Benutzer den Pfad-Dialog schließt, ist der Pfad null.
+            // In diesem Fall die Installation abbrechen.
+            if (currentSettings.ValheimInstallPath == "notgiven")
+            {
+                MessageBox.Show("Installation abgebrochen. Es wurde kein Valheim-Pfad ausgewählt.");
+                FixValheim.Visibility = Visibility.Visible;
+                Reset.Visibility = Visibility.Visible;
+                Start.IsEnabled = true;
+                Label.Content = "Fix abgebrochen! Spiel kann normal gestartet werden.";
+                return;
+            }
+            else { 
+                await Task.Run(async delegate
+                {
+                    await deleteFolder();
+                    await installer();
+                });
+                Reset.Visibility = Visibility.Visible;
+                Checkstatus();
+                Label.Content = "Überprüfung beendet, bereit zum Starten!";
+            }
+
+
         }
 
         private async Task deleteFolder()
         {
             string[] obj = new string[5] { "BepInEx/patchers", "BepInEx/config/Azumatt.MinimalUI_Backgrounds", "BepInEx/config/Intermission", "BepInEx/config/Seasonality", "valheim_Data" };
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string baseDirectory = currentSettings.ValheimInstallPath;
             string[] array = obj;
             foreach (string path in array)
             {
@@ -848,7 +965,7 @@ namespace ValheimLauncher
             });
             foreach (string item in new List<string> { "BepInEx/patchers", "BepInEx/config/Azumatt.MinimalUI_Backgrounds", "BepInEx/config/Intermission", "BepInEx/config/Seasonality", "valheim_Data" })
             {
-                string text = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, item);
+                string text = Path.Combine(currentSettings.ValheimInstallPath, item);
                 if (Directory.Exists(text))
                 {
                     try
@@ -865,7 +982,7 @@ namespace ValheimLauncher
             {
                 using HttpClient httpClient = new HttpClient();
                 await DownloadDirectoryAsync(httpClient, serverUri, await GetTotalSizeFromServer(httpClient));
-                string valheimInstallationPath = AppDomain.CurrentDomain.BaseDirectory;
+                string valheimInstallationPath = currentSettings.ValheimInstallPath;
 
                 BootConfigModifier configModifier = new BootConfigModifier(valheimInstallationPath);
                 configModifier.ApplyPerformanceSettings();
@@ -912,7 +1029,7 @@ namespace ValheimLauncher
                 return;
             }
             string basePath = "/ValheimWithBepInEx/";
-            string localBasePath = AppDomain.CurrentDomain.BaseDirectory;
+            string localBasePath = currentSettings.ValheimInstallPath;
             File.Delete(localBasePath + "ValheimWithBepInEx.zip");
             foreach (HtmlNode item in (IEnumerable<HtmlNode>)htmlNodeCollection)
             {
@@ -959,7 +1076,7 @@ namespace ValheimLauncher
                                 });
                                 Label.Dispatcher.Invoke(delegate
                                 {
-                                    Label.Content = Path.GetFileName(localPath) ?? "";
+                                    Label.Content = "Download: " + Path.GetFileName(localPath) ?? "";
                                 });
                             }
                         }
@@ -1171,6 +1288,23 @@ namespace ValheimLauncher
             // Buttons wieder aktivieren und Status prüfen
             if (MP_Download != null) MP_Download.IsEnabled = true;
             Checkstatus(); // Aktualisiert den Zustand von Start-Button etc.
+        }
+
+        private void ChangeInstallPath(object sender, RoutedEventArgs e)
+        {
+
+            // 2. Wenn nicht vorhanden, öffne einen Dialog zur Pfadauswahl.
+            SelectValheimFolder();
+            SaveSettings(); // Speichere den neu ausgewählten Pfad
+
+
+
+        }
+
+        private void OpenInstallPath(object sender, RoutedEventArgs e)
+        {
+            string folderPath = currentSettings.ValheimInstallPath; // Replace with your folder path
+            Process.Start("explorer.exe", folderPath);
         }
 
     }

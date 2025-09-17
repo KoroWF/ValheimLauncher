@@ -32,6 +32,7 @@
     <None Remove="closewindowhover.png" />
     <None Remove="dclogo1.png" />
     <None Remove="discordlogohover2.png" />
+    <None Remove="Filesearcher.png" />
     <None Remove="fixvalheim.png" />
     <None Remove="fixvalheimover.png" />
     <None Remove="gzr.gif" />
@@ -46,12 +47,18 @@
     <None Remove="pic\closewindowhover.png" />
     <None Remove="pic\fixvalheim.png" />
     <None Remove="pic\fixvalheimover.png" />
+    <None Remove="pic\i.png" />
     <None Remove="pic\installgame1.png" />
     <None Remove="pic\installgame1noenable.png" />
     <None Remove="pic\installgamehover1.png" />
+    <None Remove="pic\io.png" />
     <None Remove="pic\leiste.png" />
     <None Remove="pic\MPDownload.png" />
     <None Remove="pic\MPDownloadOver.png" />
+    <None Remove="pic\r.png" />
+    <None Remove="pic\ro.png" />
+    <None Remove="pic\ss.png" />
+    <None Remove="pic\sss.png" />
     <None Remove="pic\startbutton.png" />
     <None Remove="pic\startbuttonhover.png" />
     <None Remove="pic\startbuttonnoenable.png" />
@@ -63,30 +70,40 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="leiste.png" />
+    <Resource Include="pic\io.png" />
+    <Resource Include="pic\r.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Filesearcher.png" />
     <Resource Include="pic\background2.png" />
     <Resource Include="pic\closewindow.png" />
     <Resource Include="pic\closewindowhover.png" />
     <Resource Include="pic\fixvalheim.png" />
     <Resource Include="pic\fixvalheimover.png" />
+    <Resource Include="pic\i.png" />
     <Resource Include="pic\installgame1.png" />
     <Resource Include="pic\installgame1noenable.png" />
     <Resource Include="pic\installgamehover1.png" />
     <Resource Include="pic\leiste.png" />
     <Resource Include="pic\MPDownload.png" />
     <Resource Include="pic\MPDownloadOver.png" />
+    <Resource Include="pic\ro.png" />
     <Resource Include="pic\startbutton.png" />
     <Resource Include="pic\startbuttonhover.png" />
     <Resource Include="pic\startbuttonnoenable.png" />
-    <Resource Include="pic\Vulkan.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="pic\ID2.ico" />
+    <Resource Include="startbutton.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.12.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.3" />
+    <PackageReference Include="MahApps.Metro" Version="3.0.0-rc0525" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="SharpCompress" Version="0.40.0" />
   </ItemGroup>
 </Project>

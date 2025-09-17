@@ -4,6 +4,33 @@
              xmlns:local="clr-namespace:ValheimLauncher"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!-- OFF SWITCH COLOR -->
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOff" Color="DarkGray" />
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOffPointerOver" Color="DarkGray"/>
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.StrokeOff" Color="black" Opacity="0"/>
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.StrokeOffPointerOver" Color="White" />
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.KnobFillOff" Color="Blue"/>
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.KnobFillOnPressed" Color="White" />
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.KnobFillOffPointerOver" Color="black" />
+            <!-- ONN SWITCH COLOR -->
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOn" Color="DarkGray" />
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.FillOnPointerOver" Color="DarkGray"/>
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.StrokeOn" Color="White" Opacity="100"/>
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.StrokeOnPressed" Color="White" Opacity="100"/>
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.StrokeOnPointerOver" Color="White" Opacity="100"/>
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.KnobFillOn" Color="Red" />
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.KnobFillOffPressed" Color="White" />
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.KnobFillOnPointerOver" Color="black" />
+            <SolidColorBrush x:Key="MahApps.Brushes.ToggleSwitch.Border.On" Color="White" />
+            
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,48 +1,53 @@
-﻿<Window x:Class="ValheimLauncher.MainWindow" 
+﻿<Window 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:ValheimLauncher" 
-        Title="MainWindow" Height="479" Width="701" 
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" xmlns:RuntimeBinder="clr-namespace:Microsoft.CSharp.RuntimeBinder;assembly=Microsoft.CSharp" x:Class="ValheimLauncher.MainWindow" 
+        Title="MainWindow" Height="683" Width="1012" 
         WindowStyle="None" AllowsTransparency="True" Cursor="Cross" 
         Foreground="{x:Null}" Background="{x:Null}">
     <Window.Resources>
         <local:ProgressToClipConverter x:Key="ProgressToClipConverter"/>
     </Window.Resources>
-    <Grid Height="479" Width="681" HorizontalAlignment="Center" VerticalAlignment="Center" Mouse.MouseDown="Grid_MouseDown">
-        <Panel.Background>
+    <Grid Height="704" Width="1012" HorizontalAlignment="Center" VerticalAlignment="Center" Mouse.MouseDown="Grid_MouseDown" RenderTransformOrigin="0.54,0.489">
+        <Grid.Background>
             <ImageBrush TileMode="None" ImageSource="/pic/background2.png" />
-        </Panel.Background>
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Button Name="Start" VerticalAlignment="Top" Height="200" BorderThickness="0,0,0,0" HorizontalAlignment="Left" Width="314" RenderTransformOrigin="0.506,0.713" Margin="20,70,0,0" Click="Start_Click">
-                <UIElement.RenderTransform>
+        </Grid.Background>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="193,172,0,0" Height="66" Width="198">
+            <Grid.Background>
+                <ImageBrush Stretch="UniformToFill"/>
+            </Grid.Background>
+            <Button x:Name="Start" VerticalAlignment="Top" Height="67" BorderThickness="0,0,0,0" HorizontalAlignment="Left" Width="162" RenderTransformOrigin="0.506,0.713" Click="Start_Click" Margin="-31,-11,0,0">
+                <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform />
                         <SkewTransform />
                         <RotateTransform Angle="0" />
                         <TranslateTransform />
                     </TransformGroup>
-                </UIElement.RenderTransform>
-                <Control.Background>
-                    <ImageBrush ImageSource="/pic/startbutton.png" />
-                </Control.Background>
-                <FrameworkElement.Style>
+                </Button.RenderTransform>
+                <Button.Style>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type Button}">
-                                    <Grid Margin="36,26,-52,22" Height="NaN">
-                                        <Image Name="BackgroundImage" Source="/pic/startbutton.png" Stretch="UniformToFill" Height="159" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Margin="0,-7,0,0" />
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Grid Margin="36,8,-52,-17" Height="NaN">
+                                        <Image x:Name="BackgroundImage" Source="/pic/startbutton.png" Stretch="UniformToFill" Height="85" VerticalAlignment="Top" HorizontalAlignment="Left" Width="171" Margin="-2,-9,0,0" />
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                            <ContentPresenter.OpacityMask>
+                                                <ImageBrush ImageSource="/pic/startbutton.png" Stretch="UniformToFill"/>
+                                            </ContentPresenter.OpacityMask>
+                                        </ContentPresenter>
                                     </Grid>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsEnabled" Value="False">
-                                            <Setter x:Name="StartGamenotenable_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/startbuttonnoenable.png" />
-                                            <Setter TargetName="BackgroundImage" Property="UIElement.Opacity" Value="0.5" />
+                                            <Setter x:Name="StartGamenotenable_png" TargetName="BackgroundImage" Property="Source" Value="/pic/startbuttonnoenable.png" />
+                                            <Setter TargetName="BackgroundImage" Property="Opacity" Value="0.5" />
                                         </Trigger>
-                                        <Trigger Property="UIElement.IsMouseOver" Value="True">
-                                            <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/startbuttonhover.png" />
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Source" Value="/pic/startbuttonhover.png" />
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -53,25 +58,25 @@
                         <Setter Property="FontSize" Value="14" />
                         <Setter Property="Padding" Value="10,3,10,3" />
                     </Style>
-                </FrameworkElement.Style>
+                </Button.Style>
             </Button>
         </Grid>
-        <Button Name="MP_Download" Content="" HorizontalAlignment="Left" Margin="71,40,0,0" VerticalAlignment="Top" Width="78" Height="25" FontSize="8" BorderBrush="{x:Null}" Click="Button_Click" ForceCursor="True">
-            <Control.Background>
+        <Button x:Name="MP_Download" Content="" HorizontalAlignment="Left" Margin="309,602,0,0" VerticalAlignment="Top" Width="106" Height="44" FontSize="8" BorderBrush="{x:Null}" Click="Button_Click" ForceCursor="True">
+            <Button.Background>
                 <ImageBrush ImageSource="/pic/MPDownload.png"/>
-            </Control.Background>
-            <FrameworkElement.Style>
+            </Button.Background>
+            <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Grid>
-                                    <Image Name="BackgroundImage" Source="/pic/MPDownload.png" Height="46" VerticalAlignment="Center" />
+                                <Grid Margin="0,0,35,0">
+                                    <Image x:Name="BackgroundImage" Source="/pic/MPDownload.png" Stretch="UniformToFill" Height="34" VerticalAlignment="Center" HorizontalAlignment="Center" Width="71" />
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="UIElement.IsMouseOver" Value="True">
-                                        <Setter x:Name="MPDownloadOver_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/MPDownloadOver.png" />
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter x:Name="MPDownloadOver_png" TargetName="BackgroundImage" Property="Source" Value="/pic/MPDownloadOver.png" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -82,27 +87,27 @@
                     <Setter Property="FontSize" Value="14" />
                     <Setter Property="Padding" Value="10,3,10,3" />
                 </Style>
-            </FrameworkElement.Style>
-            <FrameworkElement.ToolTip>
-                <TextBlock Name="TooltipMPDownload" TextWrapping="Wrap" MaxWidth="200">Lade manuell das neueste Mod-Paket von Thunderstore.io herunter. Dadurch werden auch fehlende Mod-Dateien behoben.</TextBlock>
-            </FrameworkElement.ToolTip>
+            </Button.Style>
+            <Button.ToolTip>
+                <TextBlock x:Name="TooltipMPDownload" TextWrapping="Wrap" MaxWidth="200"><Run Text="Lade manuell das neueste Mod-Paket von Thunderstore.io herunter. Dadurch werden auch fehlende Mod-Dateien behoben."/></TextBlock>
+            </Button.ToolTip>
         </Button>
-        <Button Name="CloseButton" Content="" Margin="575,19,0,0" VerticalAlignment="Top" IsCancel="True" Height="30" HorizontalAlignment="Left" Width="44" BorderThickness="0,0,0,0" Click="Close_Click">
-            <Control.Background>
-                <ImageBrush ImageSource="/pic/CloseWindow.png" Stretch="Fill" />
-            </Control.Background>
-            <FrameworkElement.Style>
+        <Button x:Name="CloseButton" Content="" Margin="754,164,0,0" VerticalAlignment="Top" IsCancel="True" Height="48" HorizontalAlignment="Left" Width="52" BorderThickness="0,0,0,0" Click="Close_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/pic/CloseWindow.png" Stretch="UniformToFill" />
+            </Button.Background>
+            <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Grid>
-                                    <Image Name="BackgroundImage" Source="/pic/CloseWindow.png" Stretch="Fill" Height="46" VerticalAlignment="Center" Margin="-3,0,3,0" />
+                                <Grid Margin="20,0,8,28">
+                                    <Image x:Name="BackgroundImage" Source="/pic/CloseWindow.png" Stretch="UniformToFill" Height="21" VerticalAlignment="Center" HorizontalAlignment="Left" Width="20" />
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="UIElement.IsMouseOver" Value="True">
-                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/CloseWindowHover.png" />
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Source" Value="/pic/CloseWindowHover.png" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -113,21 +118,32 @@
                     <Setter Property="FontSize" Value="14" />
                     <Setter Property="Padding" Value="10,3,10,3" />
                 </Style>
-            </FrameworkElement.Style>
+            </Button.Style>
         </Button>
-        <ProgressBar Name="ProgressLeiste" HorizontalAlignment="Center" Height="6" Margin="0,443,0,0" VerticalAlignment="Top" Width="537" Value="0" BorderBrush="Black" Background="Black">
+        <ProgressBar x:Name="ProgressLeiste" HorizontalAlignment="Left" Height="13" Margin="391,478,0,0" VerticalAlignment="Top" Width="423" Value="0" BorderBrush="{x:Null}" Background="{x:Null}" RenderTransformOrigin="0.5,0.5">
+            <ProgressBar.OpacityMask>
+                <ImageBrush ImageSource="/pic/leiste.png"/>
+            </ProgressBar.OpacityMask>
+            <ProgressBar.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ProgressBar.RenderTransform>
             <ProgressBar.Template>
-                <ControlTemplate TargetType="ProgressBar">
+                <ControlTemplate TargetType="{x:Type ProgressBar}">
                     <Grid>
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"/>
-                        <Image Source="pic/leiste.png" Stretch="Fill" HorizontalAlignment="Left">
+                        <Image Source="/pic/leiste.png" Stretch="Fill" HorizontalAlignment="Left">
                             <Image.Clip>
                                 <RectangleGeometry>
                                     <RectangleGeometry.Rect>
                                         <MultiBinding Converter="{StaticResource ProgressToClipConverter}">
-                                            <Binding Path="Value" RelativeSource="{RelativeSource AncestorType=ProgressBar}"/>
-                                            <Binding Path="Maximum" RelativeSource="{RelativeSource AncestorType=ProgressBar}"/>
-                                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType=ProgressBar}"/>
+                                            <Binding Path="Value" RelativeSource="{RelativeSource AncestorType={x:Type ProgressBar}}"/>
+                                            <Binding Path="Maximum" RelativeSource="{RelativeSource AncestorType={x:Type ProgressBar}}"/>
+                                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource AncestorType={x:Type ProgressBar}}"/>
                                         </MultiBinding>
                                     </RectangleGeometry.Rect>
                                 </RectangleGeometry>
@@ -137,27 +153,27 @@
                 </ControlTemplate>
             </ProgressBar.Template>
         </ProgressBar>
-        <Label Name="Label" Content="" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,418,0,0" VerticalAlignment="Top" Width="471" Height="25" Foreground="#FFFFFFFF" FontFamily="Eras ITC" FontSize="10" />
-        <Button Name="InstallGame" HorizontalAlignment="Left" Margin="407,298,0,0" VerticalAlignment="Top" Height="115" Width="202" BorderThickness="0,0,0,0" IsEnabled="True" Click="InstallGame_Click">
-            <Control.Background>
+        <Label x:Name="Label" Content="" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="396,446,0,0" VerticalAlignment="Top" Width="438" Height="32" Foreground="#FFFFFFFF" FontFamily="Eras ITC" FontSize="10" />
+        <Button x:Name="InstallGame" HorizontalAlignment="Left" Margin="175,374,0,0" VerticalAlignment="Top" Height="81" Width="209" BorderThickness="0,0,0,0" IsEnabled="True" Click="InstallGame_Click">
+            <Button.Background>
                 <ImageBrush ImageSource="/pic/InstallGame1.png" Stretch="UniformToFill" />
-            </Control.Background>
-            <FrameworkElement.Style>
+            </Button.Background>
+            <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
-                                <Grid Height="NaN" Margin="0,62,0,0">
-                                    <Image Name="BackgroundImage" Source="/pic/InstallGame1.png" Stretch="Fill" Height="66" VerticalAlignment="Center" Margin="-38,0,-38,0" Width="NaN" />
+                                <Grid Height="NaN" Margin="-6,-4,-1,0">
+                                    <Image x:Name="BackgroundImage" Source="/pic/InstallGame1.png" Stretch="UniformToFill" Height="84" VerticalAlignment="Center" HorizontalAlignment="Left" Width="167" Margin="28,0,0,0" />
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsEnabled" Value="False">
-                                        <Setter x:Name="InstallGame1" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/InstallGame1noenable.png" />
-                                        <Setter TargetName="BackgroundImage" Property="UIElement.Opacity" Value="0.5" />
+                                        <Setter x:Name="InstallGame1" TargetName="BackgroundImage" Property="Source" Value="/pic/InstallGame1noenable.png" />
+                                        <Setter TargetName="BackgroundImage" Property="Opacity" Value="0.5" />
                                     </Trigger>
-                                    <Trigger Property="UIElement.IsMouseOver" Value="True">
-                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/InstallGamehover1.png" />
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Source" Value="/pic/InstallGamehover1.png" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -168,27 +184,27 @@
                     <Setter Property="FontSize" Value="14" />
                     <Setter Property="Padding" Value="10,3,10,3" />
                 </Style>
-            </FrameworkElement.Style>
+            </Button.Style>
         </Button>
-        <Button Name="FixValheim" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="212" BorderThickness="0,0,0,0" IsEnabled="True" Margin="407,363,0,0" Click="FixValheim_Click">
-            <Control.Background>
+        <Button x:Name="FixValheim" HorizontalAlignment="Left" VerticalAlignment="Top" Height="71" Width="198" BorderThickness="0,0,0,0" IsEnabled="True" Margin="186,384,0,0" Click="FixValheim_Click">
+            <Button.Background>
                 <ImageBrush ImageSource="/pic/FixValheim.png" Stretch="UniformToFill" />
-            </Control.Background>
-            <FrameworkElement.ToolTip>
-                <TextBlock TextWrapping="Wrap" MaxWidth="200">Mit 'Fix Valheim' kannst du Spieldaten reparieren. Diese umfassen ausschließlich die Daten, die du auch von Steam herunterladen kannst. Mit 'Fix Valheim' werden nur bedingt Mod-Daten geändert. Diese Mod-Daten beinhalten: MMOHOOK für Planbuild, Immersion für die Bilder im Ladebildschirm und die Grafiken für Seasonality.</TextBlock>
-            </FrameworkElement.ToolTip>
-            <FrameworkElement.Style>
+            </Button.Background>
+            <Button.ToolTip>
+                <TextBlock TextWrapping="Wrap" MaxWidth="200"><Run Text="Mit 'Fix Valheim' kannst du Spieldaten reparieren. Diese umfassen ausschließlich die Daten, die du auch von Steam herunterladen kannst. Mit 'Fix Valheim' werden nur bedingt Mod-Daten geändert. Diese Mod-Daten beinhalten: MMOHOOK für Planbuild, Immersion für die Bilder im Ladebildschirm und die Grafiken für Seasonality."/></TextBlock>
+            </Button.ToolTip>
+            <Button.Style>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Grid>
-                                    <Image Name="BackgroundImage" Source="/pic/FixValheim.png" Stretch="Fill" Height="67" VerticalAlignment="Center" Margin="10,0,-92,0" Width="NaN" />
+                                    <Image x:Name="BackgroundImage" Source="/pic/FixValheim.png" Stretch="UniformToFill" Height="85" VerticalAlignment="Top" HorizontalAlignment="Left" Width="170" Margin="10,-14,0,0" />
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 </Grid>
                                 <ControlTemplate.Triggers>
-                                    <Trigger Property="UIElement.IsMouseOver" Value="True">
-                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Image.Source" Value="/pic/FixValheimOver.png" />
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter x:Name="StartGameover_png" TargetName="BackgroundImage" Property="Source" Value="/pic/FixValheimOver.png" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -199,95 +215,127 @@
                     <Setter Property="FontSize" Value="14" />
                     <Setter Property="Padding" Value="10,3,10,3" />
                 </Style>
-            </FrameworkElement.Style>
+            </Button.Style>
         </Button>
-        <Label Content="Launcher v. 1.5.5" HorizontalAlignment="Left" Margin="507,20,0,0" VerticalAlignment="Top" Width="69" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
-            <UIElement.Effect>
-                <DropShadowEffect />
-            </UIElement.Effect>
-            <UIElement.RenderTransform>
+        <Label Content="Launcher v. 1.5.7" HorizontalAlignment="Left" Margin="590,576,0,0" VerticalAlignment="Top" Width="84" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="10">
+            <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
                     <SkewTransform AngleX="0" />
                     <RotateTransform />
                     <TranslateTransform X="0" />
                 </TransformGroup>
-            </UIElement.RenderTransform>
+            </Label.RenderTransform>
         </Label>
-        <Label Content="MP Lokal:" HorizontalAlignment="Left" Margin="71,20,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
-            <UIElement.Effect>
-                <DropShadowEffect />
-            </UIElement.Effect>
-            <UIElement.RenderTransform>
+        <Label Content="MP Lokal:" HorizontalAlignment="Left" Margin="306,576,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="10">
+            <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
                     <SkewTransform AngleX="0" />
                     <RotateTransform />
                     <TranslateTransform X="0" />
                 </TransformGroup>
-            </UIElement.RenderTransform>
+            </Label.RenderTransform>
         </Label>
-        <Label Content="MP Online:" HorizontalAlignment="Left" Margin="71,30,0,0" VerticalAlignment="Top" Width="51" Height="19" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
-            <UIElement.Effect>
-                <DropShadowEffect />
-            </UIElement.Effect>
-            <UIElement.RenderTransform>
+        <Label Content="MP Online:" HorizontalAlignment="Left" Margin="306,586,0,0" VerticalAlignment="Top" Width="62" Height="25" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="10">
+            <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="1" />
                     <SkewTransform AngleX="0" />
                     <RotateTransform />
                     <TranslateTransform X="0" />
                 </TransformGroup>
-            </UIElement.RenderTransform>
+            </Label.RenderTransform>
         </Label>
-        <Label Name="MPLokal" Content="v. 0" HorizontalAlignment="Left" Margin="127,20,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
-            <UIElement.Effect>
-                <DropShadowEffect />
-            </UIElement.Effect>
-            <UIElement.RenderTransform>
+        <Label x:Name="MPLokal" Content="v. 0" HorizontalAlignment="Left" Margin="362,576,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="10">
+            <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
                     <SkewTransform AngleX="0" />
                     <RotateTransform />
                     <TranslateTransform X="0" />
                 </TransformGroup>
-            </UIElement.RenderTransform>
+            </Label.RenderTransform>
         </Label>
-        <Label Name="MPOnline" Content="v. 0" HorizontalAlignment="Left" Margin="127,30,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="8">
-            <UIElement.Effect>
-                <DropShadowEffect />
-            </UIElement.Effect>
-            <UIElement.RenderTransform>
+        <Label x:Name="MPOnline" Content="v. 0" HorizontalAlignment="Left" Margin="362,586,0,0" VerticalAlignment="Top" Width="68" Height="24" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="10">
+            <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
                     <SkewTransform AngleX="0" />
                     <RotateTransform />
                     <TranslateTransform X="0" />
                 </TransformGroup>
-            </UIElement.RenderTransform>
+            </Label.RenderTransform>
         </Label>
-        <CheckBox Name="Vulkan" Content="" HorizontalAlignment="Left" Margin="511,38,0,0" VerticalAlignment="Top" Height="17" Width="17" RenderTransformOrigin="0.5,0.5" Click="Vulkan_SettingChanged_Click" OpacityMask="White" >
-            <CheckBox.Background>
-                <ImageBrush/>
-            </CheckBox.Background>
-            <FrameworkElement.ToolTip>
-                <TextBlock TextWrapping="Wrap" MaxWidth="200">Insgesamt bietet Vulkan für die meisten Valheim-Spieler potenzielle Leistungsverbesserungen und Stabilitätsvorteile. Dies kann zu höheren FPS führen, bedeutet jedoch auch, dass CPU und GPU stärker beansprucht werden. Andernfalls wird DirectX 11 genutzt.</TextBlock>
-            </FrameworkElement.ToolTip>
-            <UIElement.RenderTransform>
+        <mah:ToggleSwitch x:Name="VulkanToggleSwitch"  Height="44" Header="" Margin="197,443,0,0" VerticalAlignment="Top" Width="165" OnContent="V u l k a n" RenderTransformOrigin="0.5,0.5" ContentDirection="LeftToRight" Toggled="ToggleSwitch_Toggled" OffContent="DirectX 12" mah:HeaderedControlHelper.HeaderFontSize="6" FontFamily="OCR A Extended" FontSize="16" mah:ValidationHelper.CloseOnMouseLeftButtonDown="True" OffContentStringFormat="false" OnContentStringFormat="true" >
+            <mah:ToggleSwitch.Foreground>
+                <ImageBrush ImageSource="/pic/leiste.png"/>
+            </mah:ToggleSwitch.Foreground>
+            <mah:ToggleSwitch.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform ScaleX="0.85" ScaleY="0.85" />
-                    <SkewTransform />
-                    <RotateTransform />
-                    <TranslateTransform />
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0"/>
                 </TransformGroup>
-            </UIElement.RenderTransform>
-            <Control.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" />
-                    <GradientStop Color="#FF6B0505" Offset="1" />
-                </LinearGradientBrush>
-            </Control.BorderBrush>
-        </CheckBox>
-        <Image x:Name="Vulkan1" HorizontalAlignment="Left" Height="42" Margin="522,36,0,0" VerticalAlignment="Top" Width="60" Source="pic/Vulkan.png"/>
+            </mah:ToggleSwitch.RenderTransform>
+        </mah:ToggleSwitch>
+        <Button x:Name="IPath"  HorizontalAlignment="Left" Margin="632,607,0,0" VerticalAlignment="Top" Width="48" Height="37" Click="OpenInstallPath" BorderThickness="0,1,1,1" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Button.Background>
+                <ImageBrush ImageSource="/pic/i.png" Stretch="UniformToFill"/>
+            </Button.Background>
+
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Image x:Name="BackgroundImage" Source="/pic/i.png" Stretch="UniformToFill" Height="50" VerticalAlignment="Center" HorizontalAlignment="Left" Width="39" />
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter x:Name="io_png" TargetName="BackgroundImage" Property="Source" Value="/pic/io.png" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Background" Value="#FF1C1C1C" />
+                    <Setter Property="Foreground" Value="#FFFFFFFF" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="Padding" Value="10,3,10,3" />
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button x:Name="Reset" HorizontalAlignment="Left" Margin="582,607,0,0" VerticalAlignment="Top" Width="50" Height="37" Click="ChangeInstallPath" BorderThickness="0,1,1,1" BorderBrush="{x:Null}" Foreground="{x:Null}">
+            <Button.Background>
+                <ImageBrush ImageSource="/pic/r.png" Stretch="UniformToFill"/>
+            </Button.Background>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid>
+                                    <Image x:Name="BackgroundImage" Source="/pic/r.png" Stretch="UniformToFill" Height="50" VerticalAlignment="Center" HorizontalAlignment="Left" Width="39" />
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter x:Name="ro_png" TargetName="BackgroundImage" Property="Source" Value="/pic/ro.png" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Background" Value="#FF1C1C1C" />
+                    <Setter Property="Foreground" Value="#FFFFFFFF" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="Padding" Value="10,3,10,3" />
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>
