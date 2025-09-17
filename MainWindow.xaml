@@ -120,7 +120,7 @@
                 </Style>
             </Button.Style>
         </Button>
-        <ProgressBar x:Name="ProgressLeiste" HorizontalAlignment="Left" Height="13" Margin="391,478,0,0" VerticalAlignment="Top" Width="423" Value="0" BorderBrush="{x:Null}" Background="{x:Null}" RenderTransformOrigin="0.5,0.5">
+        <ProgressBar x:Name="ProgressLeiste" HorizontalAlignment="Left" Height="13" Margin="391,478,0,0" VerticalAlignment="Top" Width="421" Value="0" BorderBrush="{x:Null}" Background="{x:Null}" RenderTransformOrigin="0.5,0.5">
             <ProgressBar.OpacityMask>
                 <ImageBrush ImageSource="/pic/leiste.png"/>
             </ProgressBar.OpacityMask>
@@ -280,7 +280,7 @@
                 </TransformGroup>
             </mah:ToggleSwitch.RenderTransform>
         </mah:ToggleSwitch>
-        <Label Content="einstallation" HorizontalAlignment="Left" Margin="584,593,0,0" VerticalAlignment="Top" Width="84" Height="22" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="10">
+        <Label x:Name="ResetLabel" Content="einstallation" HorizontalAlignment="Left" Margin="584,593,0,0" VerticalAlignment="Top" Width="84" Height="22" RenderTransformOrigin="0.5,0.5" Foreground="#FFBFBFBF" FontSize="10">
             <Label.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />

@@ -860,6 +860,7 @@ namespace ValheimLauncher
         {
             InstallGame.Visibility = Visibility.Hidden;
             Reset.Visibility = Visibility.Hidden;
+            ResetLabel.Visibility = Visibility.Hidden;
             Label.Content = "Nachdem der Installationspfad gewählt wurde, beginnt der Download.";
 
             // 1. Überprüfe, ob der Installationspfad existiert.
@@ -877,6 +878,7 @@ namespace ValheimLauncher
                 MessageBox.Show("Installation abgebrochen. Es wurde kein Valheim-Pfad ausgewählt.");
                 InstallGame.Visibility = Visibility.Visible;
                 Reset.Visibility = Visibility.Visible;
+                ResetLabel.Visibility = Visibility.Visible;
                 return;
             }
             else
@@ -890,6 +892,7 @@ namespace ValheimLauncher
                 Checkstatus();
                 Label.Content = "Das Hauptspiel wurde fertig geladen";
                 Reset.Visibility = Visibility.Visible;
+                ResetLabel.Visibility = Visibility.Visible;
                 await Check_Versions();
             }
         }
@@ -898,6 +901,7 @@ namespace ValheimLauncher
         {
             FixValheim.Visibility = Visibility.Hidden;
             Reset.Visibility = Visibility.Hidden;
+            ResetLabel.Visibility = Visibility.Hidden;
             Start.IsEnabled = false;
             Label.Content = "Überprüfe vorhandene Daten auf Fehler!";
 
@@ -917,6 +921,7 @@ namespace ValheimLauncher
                 MessageBox.Show("Installation abgebrochen. Es wurde kein Valheim-Pfad ausgewählt.");
                 FixValheim.Visibility = Visibility.Visible;
                 Reset.Visibility = Visibility.Visible;
+                ResetLabel.Visibility = Visibility.Visible;
                 Start.IsEnabled = true;
                 Label.Content = "Fix abgebrochen! Spiel kann normal gestartet werden.";
                 return;
@@ -928,6 +933,7 @@ namespace ValheimLauncher
                     await installer();
                 });
                 Reset.Visibility = Visibility.Visible;
+                ResetLabel.Visibility = Visibility.Visible;
                 Checkstatus();
                 Label.Content = "Überprüfung beendet, bereit zum Starten!";
             }
