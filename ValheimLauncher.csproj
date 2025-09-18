@@ -42,6 +42,7 @@
     <None Remove="leiste.png" />
     <None Remove="MPDownload.png" />
     <None Remove="MPDownloadOver.png" />
+    <None Remove="pic\background.png" />
     <None Remove="pic\background2.png" />
     <None Remove="pic\closewindow.png" />
     <None Remove="pic\closewindowhover.png" />
@@ -71,6 +72,7 @@
 
   <ItemGroup>
     <Resource Include="leiste.png" />
+    <Resource Include="pic\background.png" />
     <Resource Include="pic\io.png" />
     <Resource Include="pic\r.png" />
   </ItemGroup>

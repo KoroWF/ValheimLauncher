@@ -5,21 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValheimLauncher"
         mc:Ignorable="d"
-        Title="DriveSelectionWindow" Height="225" Width="456" WindowStyle="None">
-    <Grid Margin="10,10,0,7">
+        Title="DriveSelectionWindow" Height="258" Width="548" WindowStyle="None">
+    <Grid Margin="20,20,10,-12">
         <Grid.RowDefinitions>
-            <RowDefinition Height="120" MinHeight="26.96"/>
-            <RowDefinition Height="Auto" MinHeight="40"/>
-            <RowDefinition Height="Auto" MinHeight="27.3"/>
+            <RowDefinition Height="140" MinHeight="26.96"/>
+            <RowDefinition Height="20" MinHeight="40"/>
+            <RowDefinition Height="30" MinHeight="27.3"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Hier können Sie ein neues Installationslaufwerk auswählen,&#xD;&#xA;falls Sie ein anderes bevorzugen. Der Launcher wird danach neu gestartet.&#xA;&#xA;ACHTUNG: Alte Daten aus dem vorherigen Verzeichnis werden&#xD;&#xA;nach dem Klick auf 'OK' gelöscht!&#xA;&#xA;Bitte wählen Sie ein Laufwerk für die Installation:" Grid.Row="0" Margin="0,0,0,1"/>
+        <Label Content="Um die Installation so einfach wie möglich zu gestalten, wird auf dem&#xA;ausgewählten Laufwerk ein Ordner mit dem Namen „ValheimImmerndar“ erstellt.&#xA;&#xA;Installaltionspfad ändern: Alle vorhandenen ValheimImmerndar Daten werden&#xD;&#xA;auf das neu ausgewählte Laufwerk verschoben. (Keine Neuinstallation)&#xA;&#xA;Bitte wählen Sie ein Laufwerk für die Installation:" Grid.Row="0" Margin="0,0,-20,38" Grid.RowSpan="2"/>
 
-        <ComboBox x:Name="DriveComboBox" Grid.Row="1" Margin="0,4,10,10"/>
+        <ComboBox x:Name="DriveComboBox" Grid.Row="1" Margin="5,5,5,5"/>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2" Margin="300,0,0,0" Width="129">
-            <Button Content="OK" Click="OkButton_Click" IsDefault="True" Margin="0,0,5,0" Width="50"/>
-            <Button Content="Abbrechen" Click="CancleButton_Click" />
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2" Margin="281,0,0,-6" Width="227">
+            <Button Content="OK" Click="OkButton_Click" IsDefault="True" Margin="5,5,5,5" Width="100"/>
+            <Button Content="Abbrechen" Click="CancleButton_Click" Margin="5,5,5,5"  Width="100"/>
         </StackPanel>
     </Grid>
 </Window>

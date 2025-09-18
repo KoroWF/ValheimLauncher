@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace ValheimLauncher
 {
@@ -33,26 +34,36 @@ namespace ValheimLauncher
 
         private void LoadDrives()
         {
-            // Alle verfügbaren, physischen Laufwerke abrufen
             try
             {
-                var drives = DriveInfo.GetDrives()
-                                     .Where(d => d.IsReady && d.DriveType == DriveType.Fixed);
+                // 1. Hole das Laufwerk aus dem aktuellen Installationspfad
+                string currentDrive = null;
+                if (currentSettings != null && !string.IsNullOrEmpty(currentSettings.ValheimInstallPath))
+                {
+                    currentDrive = Path.GetPathRoot(currentSettings.ValheimInstallPath);
+                }
 
+                // 2. Filtere alle physischen, bereiten Laufwerke, die NICHT das aktuelle sind
+                var drives = DriveInfo.GetDrives()
+                                      .Where(d => d.IsReady &&
+                                                  d.DriveType == DriveType.Fixed &&
+                                                  !string.Equals(d.Name, currentDrive, StringComparison.OrdinalIgnoreCase));
+
+                // 3. Füge die verbleibenden Laufwerke zur Combobox hinzu
                 foreach (var drive in drives)
                 {
                     DriveComboBox.Items.Add(drive.Name);
                 }
 
+                // 4. Setze die Auswahl auf das erste verfügbare Laufwerk
                 if (DriveComboBox.Items.Count > 0)
                 {
-                    DriveComboBox.SelectedIndex = 0; // Wähle das erste Laufwerk vor
+                    DriveComboBox.SelectedIndex = 0;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Fehler beim Laden der Laufwerke: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                // Das Fenster kann geschlossen werden, wenn keine Laufwerke gefunden werden.
                 this.Close();
             }
         }
@@ -60,24 +71,6 @@ namespace ValheimLauncher
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             string oldInstallPath = currentSettings.ValheimInstallPath;
-
-            // Überprüfe, ob der alte Ordner existiert, und lösche ihn.
-            if (!string.IsNullOrEmpty(oldInstallPath) && Directory.Exists(oldInstallPath))
-            {
-                try
-                {
-                    // Lösche den Ordner rekursiv (mit allen Inhalten).
-                    Directory.Delete(oldInstallPath, true);
-                }
-                catch (Exception ex)
-                {
-                    // Behandle mögliche Fehler beim Löschen und zeige eine Meldung an.
-                    MessageBox.Show($"Fehler beim Löschen des alten Ordners: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                    // Optional: Wenn das Löschen fehlschlägt, den Vorgang abbrechen.
-                    return;
-                }
-            }
 
             if (DriveComboBox.SelectedItem != null)
             {
