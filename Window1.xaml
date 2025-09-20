@@ -5,21 +5,80 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ValheimLauncher"
         mc:Ignorable="d"
-        Title="DriveSelectionWindow" Height="258" Width="548" WindowStyle="None">
-    <Grid Margin="20,20,10,-12">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="140" MinHeight="26.96"/>
-            <RowDefinition Height="20" MinHeight="40"/>
-            <RowDefinition Height="30" MinHeight="27.3"/>
-        </Grid.RowDefinitions>
+        Title="DriveSelectionWindow" Height="490" Width="707" WindowStyle="None" Foreground="{x:Null}" ResizeMode="NoResize" AllowsTransparency="True">
+    <Window.Background>
+        <ImageBrush ImageSource="/pic/background.png"/>
+    </Window.Background>
+    <Grid Margin="10,0,10,10">
+        <TextBlock Grid.Row="0" Margin="111,114,117,222" FontFamily="/ValheimLauncher;component/fonts/#Norse" FontSize="18"  Foreground="LightGray" ><Run Text="                            "/><Run Text=" auf dem"/><Run Text=" "/><Run Text="ausgewählten Laufwerk "/><Run Text="wird "/><Run Text="ein Ordner mit "/><LineBreak/><Run Text="dem Namen „ValheimImmerndar“ erstellt.&#xA;&#xA;"/><Run Text="                                            "/><Run Text="Alle vorhandenen Valheim Daten "/><Run Text="werden"/><Run Language="de-de" Text=" "/><Run Text="auf"/><LineBreak/><Run Text=" das neu ausgewählte Laufwerk verschoben.&#xA;&#xA;Bitte wählen Sie ein Laufwerk aus:"/></TextBlock>
+        <TextBlock Grid.Row="0" Margin="111,114,461,343" FontFamily="/ValheimLauncher;component/fonts/#Norse" FontSize="18"  Foreground="Green" ><Run Text="Neu Installation:"/></TextBlock>
+        <TextBlock Grid.Row="0" Margin="111,173,384,285" FontFamily="/ValheimLauncher;component/fonts/#Norse" FontSize="18"  Foreground="Green" ><Run Text="InstallationsPfad ändern:"/></TextBlock>
 
-        <Label Content="Um die Installation so einfach wie möglich zu gestalten, wird auf dem&#xA;ausgewählten Laufwerk ein Ordner mit dem Namen „ValheimImmerndar“ erstellt.&#xA;&#xA;Installaltionspfad ändern: Alle vorhandenen ValheimImmerndar Daten werden&#xD;&#xA;auf das neu ausgewählte Laufwerk verschoben. (Keine Neuinstallation)&#xA;&#xA;Bitte wählen Sie ein Laufwerk für die Installation:" Grid.Row="0" Margin="0,0,-20,38" Grid.RowSpan="2"/>
-
-        <ComboBox x:Name="DriveComboBox" Grid.Row="1" Margin="5,5,5,5"/>
-
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="2" Margin="281,0,0,-6" Width="227">
-            <Button Content="OK" Click="OkButton_Click" IsDefault="True" Margin="5,5,5,5" Width="100"/>
-            <Button Content="Abbrechen" Click="CancleButton_Click" Margin="5,5,5,5"  Width="100"/>
-        </StackPanel>
+        <ComboBox x:Name="DriveComboBox" Margin="111,252,117,201" Background="{x:Null}" FontFamily="/ValheimLauncher;component/fonts/#Norse" FontSize="14" Foreground="#FFBDBDBD">
+            <ComboBox.BorderBrush>
+                <ImageBrush ImageSource="/pic/leiste.png"/>
+            </ComboBox.BorderBrush>
+        </ComboBox>
+        <Button Click="OkButton_Click" IsDefault="True" Margin="353,279,227,146">
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid Margin="0,0,-3,-9">
+                                    <Image x:Name="BackgroundImage" Source="/pic/OK.png" Stretch="UniformToFill" Height="51" VerticalAlignment="Top" HorizontalAlignment="Center" Width="101" Margin="0,2,0,0" />
+                                    <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="14,0,0,0" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter x:Name="ro_png" TargetName="BackgroundImage" Property="Source" Value="/pic/OKO.png" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Background" Value="#FF1C1C1C" />
+                    <Setter Property="Foreground" Value="#FFFFFFFF" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="Padding" Value="10,3,10,3" />
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Click="CancleButton_Click" Margin="462,280,117,146" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.796"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.361"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <Button.Background>
+                <ImageBrush ImageSource="/pic/i.png" Stretch="UniformToFill"/>
+            </Button.Background>
+            <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Grid Margin="0,0,-3,-5">
+                                    <Image x:Name="BackgroundImage" Source="/pic/A.png" Stretch="UniformToFill" Height="50" VerticalAlignment="Top" HorizontalAlignment="Center" Width="100" Margin="0,2,0,0" />
+                                    <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="14,0,0,0" />
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter x:Name="ro_png" TargetName="BackgroundImage" Property="Source" Value="/pic/AO.png" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Background" Value="#FF1C1C1C" />
+                    <Setter Property="Foreground" Value="#FFFFFFFF" />
+                    <Setter Property="FontSize" Value="14" />
+                    <Setter Property="Padding" Value="10,3,10,3" />
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>

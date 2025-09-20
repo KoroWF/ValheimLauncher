@@ -18,9 +18,7 @@ using Path = System.IO.Path;
 
 namespace ValheimLauncher
 {
-    /// <summary>
-    /// Interaction logic for Window1.xaml
-    /// </summary>
+
     public partial class DriveSelectionWindow : Window
     {
         public string SelectedDrive { get; private set; }

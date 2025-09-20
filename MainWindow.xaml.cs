@@ -436,26 +436,20 @@ namespace ValheimLauncher
                         Label.Content = "Starte das Spiel!";
                     });
                 }
-                if (currentSettings.VulkanEnabled == true)
+                    var graphicsApiArgument = currentSettings.VulkanEnabled ? "-force-vulkan" : "-force-d3d12";
+                    var windowModeArgument = "-window-mode exclusiv";
+
+                var processInfo = new ProcessStartInfo
                 {
-                    var processInfo = new ProcessStartInfo
-                    {
-                        FileName = Path.Combine(currentSettings.ValheimInstallPath, "valheim.exe"),
-                        Arguments = "-force-vulkan",
-                        Verb = "runas" // Dies fordert Administratorrechte an
-                    };
-                    Process.Start(processInfo);
-                }
-                else
-                {
-                    var processInfo = new ProcessStartInfo
-                    {
-                        FileName = Path.Combine(currentSettings.ValheimInstallPath, "valheim.exe"),
-                        Arguments = "-force-d3d12",
-                        Verb = "runas" // Dies fordert Administratorrechte an
-                    };
-                    Process.Start(processInfo);
-                }
+                    FileName = Path.Combine(currentSettings.ValheimInstallPath, "valheim.exe"),
+
+
+                    Arguments = $"{graphicsApiArgument} {windowModeArgument}",
+                    Verb = "runas" // Dies fordert Administratorrechte an
+                };
+
+                Process.Start(processInfo);
+
                 Close();
             }
             else
@@ -752,13 +746,8 @@ namespace ValheimLauncher
                                 {
                                     if (entry.IsDirectory) continue;
                                     string entryFileName = Path.GetFileName(entry.Key);
-                                    if (isBepInExPack && entryFileName.Equals("winhttp.dll", StringComparison.OrdinalIgnoreCase))
+                                    if (isBepInExPack)
                                     {
-                                        string targetDllPath = Path.Combine(baseDirectory, "winhttp.dll");
-                                        if (!File.Exists(targetDllPath))
-                                        {
-                                            entry.WriteToFile(targetDllPath, new ExtractionOptions { Overwrite = false });
-                                        }
                                         if (isBepInExPack) continue;
                                     }
                                     entry.WriteToDirectory(extractionTargetFolder, new ExtractionOptions { ExtractFullPath = true, Overwrite = true });
@@ -802,16 +791,6 @@ namespace ValheimLauncher
 
                     try
                     {
-                        // Spezielle Behandlung für winhttp.dll: Nicht überschreiben, wenn im baseDirectory schon vorhanden
-                        string winHttpInSourcePackPath = Path.Combine(sourceFolderPathForOverwrite, "winhttp.dll");
-                        string winHttpInFinalBasePath = Path.Combine(baseDirectory, "winhttp.dll");
-
-                        if (File.Exists(winHttpInSourcePackPath) && File.Exists(winHttpInFinalBasePath))
-                        {
-                            Console.WriteLine("winhttp.dll existiert bereits im Zielverzeichnis. Version aus dem Pack wird nicht kopiert/verschoben.");
-                            File.Delete(winHttpInSourcePackPath); // Lösche es aus der Quelle, damit es beim Verschieben nicht stört
-                        }
-
                         // Verschiebe alle Dateien aus dem Quellordner in das baseDirectory
                         // File.Move mit overwrite=true überschreibt existierende Dateien im Ziel.
                         foreach (string filePath in Directory.GetFiles(sourceFolderPathForOverwrite))
@@ -1213,23 +1192,6 @@ namespace ValheimLauncher
                 foreach (string obj in files)
                 {
                     string fileName = Path.GetFileName(obj);
-
-                    // Sonderfall: winhttp.dll
-                    if (fileName.Equals("winhttp.dll", StringComparison.OrdinalIgnoreCase))
-                    {
-                        string zielPfad = Path.Combine(zipDirectoryPath, fileName);
-                        if (File.Exists(zielPfad))
-                        {
-                            continue; // Datei existiert schon, also überspringen
-                        }
-                        // Zielpfad aus dem relativen Pfad rekonstruieren
-                        string relativePath = obj.Substring(text2.Length + 1);
-                        string winhttpZiel = Path.Combine(zipDirectoryPath, relativePath);
-
-                        Directory.CreateDirectory(Path.GetDirectoryName(winhttpZiel));
-                        File.Move(obj, winhttpZiel, overwrite: true);
-                        continue; // Danach auch skippen, um keine doppelte Aktion zu machen
-                    }
 
                     string path = obj.Substring(text2.Length + 1);
                     string text4 = Path.Combine(zipDirectoryPath, path);

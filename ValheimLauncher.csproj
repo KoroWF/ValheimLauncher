@@ -35,6 +35,8 @@
     <None Remove="Filesearcher.png" />
     <None Remove="fixvalheim.png" />
     <None Remove="fixvalheimover.png" />
+    <None Remove="fonts\Norse.otf" />
+    <None Remove="fonts\Norsebold.otf" />
     <None Remove="gzr.gif" />
     <None Remove="installgame1.png" />
     <None Remove="installgame1noenable.png" />
@@ -42,6 +44,8 @@
     <None Remove="leiste.png" />
     <None Remove="MPDownload.png" />
     <None Remove="MPDownloadOver.png" />
+    <None Remove="pic\A.png" />
+    <None Remove="pic\AO.png" />
     <None Remove="pic\background.png" />
     <None Remove="pic\background2.png" />
     <None Remove="pic\closewindow.png" />
@@ -56,6 +60,8 @@
     <None Remove="pic\leiste.png" />
     <None Remove="pic\MPDownload.png" />
     <None Remove="pic\MPDownloadOver.png" />
+    <None Remove="pic\OK.png" />
+    <None Remove="pic\OKO.png" />
     <None Remove="pic\r.png" />
     <None Remove="pic\ro.png" />
     <None Remove="pic\ss.png" />
@@ -71,9 +77,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="fonts\Norse.otf" />
+    <Resource Include="fonts\Norsebold.otf" />
     <Resource Include="leiste.png" />
+    <Resource Include="pic\A.png" />
+    <Resource Include="pic\AO.png" />
     <Resource Include="pic\background.png" />
     <Resource Include="pic\io.png" />
+    <Resource Include="pic\OK.png" />
+    <Resource Include="pic\OKO.png" />
     <Resource Include="pic\r.png" />
   </ItemGroup>
 
